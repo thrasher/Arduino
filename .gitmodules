@@ -28,3 +28,6 @@
 [submodule "libraries/Adafruit_MCP9808_Library"]
 	path = libraries/Adafruit_MCP9808_Library
 	url = https://github.com/adafruit/Adafruit_MCP9808_Library.git
+[submodule "libraries/Adafruit_Sensor"]
+	path = libraries/Adafruit_Sensor
+	url = https://github.com/adafruit/Adafruit_Sensor.git
