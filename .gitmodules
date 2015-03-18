@@ -13,3 +13,6 @@
 [submodule "OmniWheelControl"]
 	path = OmniWheelControl
 	url = https://github.com/thrasher/OmniWheelControl.git
+[submodule "libraries/Adafruit_BMP183_Library"]
+	path = libraries/Adafruit_BMP183_Library
+	url = https://github.com/adafruit/Adafruit_BMP183_Library.git
