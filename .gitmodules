@@ -7,3 +7,6 @@
 [submodule "libraries/CC3000_MDNS"]
 	path = libraries/CC3000_MDNS
 	url = https://github.com/adafruit/CC3000_MDNS.git
+[submodule "BrightRoll_Arcade"]
+	path = BrightRoll_Arcade
+	url = https://github.com/thrasher/BrightRoll_Arcade.git
