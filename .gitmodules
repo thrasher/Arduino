@@ -22,3 +22,6 @@
 [submodule "libraries/Adafruit_DHT_Unified"]
 	path = libraries/Adafruit_DHT_Unified
 	url = https://github.com/adafruit/Adafruit_DHT_Unified.git
+[submodule "libraries/Adafruit-MAX31855-library"]
+	path = libraries/Adafruit-MAX31855-library
+	url = https://github.com/adafruit/Adafruit-MAX31855-library.git
