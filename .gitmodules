@@ -34,3 +34,6 @@
 [submodule "libraries/DHT-sensor-library"]
 	path = libraries/DHT-sensor-library
 	url = https://github.com/adafruit/DHT-sensor-library.git
+[submodule "libraries/WickedMotorShield"]
+	path = libraries/WickedMotorShield
+	url = https://github.com/WickedDevice/WickedMotorShield.git
