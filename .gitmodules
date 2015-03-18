@@ -1,0 +1,9 @@
+[submodule "libraries/Adafruit_CC3000_Library"]
+	path = libraries/Adafruit_CC3000_Library
+	url = https://github.com/adafruit/Adafruit_CC3000_Library.git
+[submodule "libraries/aREST"]
+	path = libraries/aREST
+	url = https://github.com/marcoschwartz/aREST.git
+[submodule "libraries/CC3000_MDNS"]
+	path = libraries/CC3000_MDNS
+	url = https://github.com/adafruit/CC3000_MDNS.git
