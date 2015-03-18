@@ -16,3 +16,6 @@
 [submodule "libraries/Adafruit_BMP183_Library"]
 	path = libraries/Adafruit_BMP183_Library
 	url = https://github.com/adafruit/Adafruit_BMP183_Library.git
+[submodule "libraries/Adafruit_BMP183_Unified_Library"]
+	path = libraries/Adafruit_BMP183_Unified_Library
+	url = https://github.com/adafruit/Adafruit_BMP183_Unified_Library.git
