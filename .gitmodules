@@ -10,3 +10,6 @@
 [submodule "BrightRoll_Arcade"]
 	path = BrightRoll_Arcade
 	url = https://github.com/thrasher/BrightRoll_Arcade.git
+[submodule "OmniWheelControl"]
+	path = OmniWheelControl
+	url = https://github.com/thrasher/OmniWheelControl.git
