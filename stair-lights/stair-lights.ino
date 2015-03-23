@@ -15,13 +15,18 @@
 // MOSFET source to GND
 // MOSFET gate to LED_GATE_PIN
 
+// Orange : A0 - Potentiometer center pin
+// White : 5V - red rail of breadboard
+// Red-LED-strip : Vin - 12v or 9v
+// Yellow : GND - blue rail of breadboard
+// White: MOSFET-gate - PWM for mosfet
+// Blue: D2 - interrupt 0
 
 #define LED_GATE_PIN 5  // pwm digital pin for MOSFET gate
-#define A_POT_PIN 3  // analog pot pin
+#define A_POT_PIN A0  // analog pot pin
 
 volatile int state = HIGH;
 int brightness = 255;
-
 
 void setup() {
   pinMode(LED_GATE_PIN, OUTPUT);
