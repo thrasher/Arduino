@@ -1,3 +1,10 @@
+// Stair Lights
+// Manages the lighting on the stairs, providing AUTO/ON/OFF functionality based on ambient
+// conditions and press-and-hold single-button switch.
+// by: Jason Thrasher 4/11/2015
+
+#include "RunningAverage.h"
+
 #define LED_GATE_PIN 9
 #define A_POT_PIN A0
 #define BUTTON_PIN 12
@@ -7,6 +14,8 @@ int brightness = 0;
 int button_state = 1;
 int mode = 0;  // auto=0, on=1, off=2
 
+RunningAverage brRA(100); // averages sensor readings for smoother led changes
+
 void setup(void)
 {
   // Start Serial
@@ -15,6 +24,8 @@ void setup(void)
   pinMode(LED_GATE_PIN, OUTPUT);
   //  pinMode(A_POT_PIN, INPUT); // does not need to be set
   pinMode(BUTTON_PIN, INPUT);
+
+  brRA.clear(); // explicitly start clean
 
   Serial.println(F("Started..."));
 }
@@ -54,27 +65,37 @@ void loop() {
 }
 
 void mode_auto() {
-  brightness = analogRead(A_POT_PIN) / 4;    // read the value from the sensor
+  int br = analogRead(A_POT_PIN) / 4;    // read the value from the sensor
 
-  //  analogWrite(LED_GATE_PIN, brightness);
-  // light is off
-  //    digitalWrite(LED_GATE_PIN, LOW);
-
-  if (brightness < 1 ) {
+  if (br < 1 ) {
     // minimum dim-ness
-    brightness = 1;
-  } else if (brightness < THRESHOLD) {
+    br = 1;
+  } else if (br < THRESHOLD) {
     // accept value
-  } else if (THRESHOLD <= brightness) {
+  } else if (THRESHOLD <= br) {
     // too bright, turn off
-    brightness = 0;
-    mode = 2; // hysteresis hack
+    br = 0;
+    //mode = 2; // hysteresis hack
   }
+
+  brRA.addValue(br);
+  brightness = brRA.getAverage();
 
   update_light();
 
-  //  analogWrite(LED_GATE_PIN, brightness);
-  Serial.print("led command: ");
+  //  Serial.print("Measurment: ");
+  //  Serial.println(br);
+  //
+  //  Serial.print("Running Average: ");
+  //  Serial.println(brRA.getAverage(), 3);
+  //
+  //  Serial.print("Running Count: ");
+  //  Serial.println(brRA.getCount(), 3);
+  //
+  //  Serial.print("Running Size: ");
+  //  Serial.println(brRA.getSize(), 3);
+  //
+  Serial.print("led brightness: ");
   Serial.println(brightness);
 }
 
