@@ -37,3 +37,6 @@
 [submodule "libraries/WickedMotorShield"]
 	path = libraries/WickedMotorShield
 	url = https://github.com/WickedDevice/WickedMotorShield.git
+[submodule "libraries/RTClib"]
+	path = libraries/RTClib
+	url = https://github.com/adafruit/RTClib.git
