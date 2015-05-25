@@ -8,8 +8,6 @@
 #include <Adafruit_CC3000.h>
 #include <ccspi.h>
 #include <SPI.h>
-#include <string.h>
-#include "utility/debug.h"
 
 #include <Wire.h>
 #include "RTClib.h"
@@ -125,7 +123,7 @@ void setup(void)
   pinMode(BUTTON_PIN, INPUT);
 
   dht.begin(); // start the DHT library
-//  brRA.clear(); // explicitly start buffer clean
+  //  brRA.clear(); // explicitly start buffer clean
 
   /* Try to reconnect using the details from SmartConfig          */
   /* This basically just resets the CC3000, and the auto connect  */
@@ -197,8 +195,8 @@ void loop() {
 
   button_state = digitalRead(BUTTON_PIN);
   if (button_state == 0) {
-  Serial.print("button_state: ");
-  Serial.println(button_state);
+    Serial.print("button_state: ");
+    Serial.println(button_state);
     //    unsigned long time;
     //    time = millis();
     int reps = 0;
@@ -211,7 +209,8 @@ void loop() {
       reps++;
       delay(1500);
     }
-    Serial.print("mode is now: ");Serial.println(p.mode);
+    Serial.print("mode is now: ");
+    Serial.println(p.mode);
   }
 
   // Update the current time.
@@ -257,7 +256,8 @@ void acquire() {
 void mode_auto() {
   p.lightsense = analogRead(A_POT_PIN);
   int br = p.lightsense / 4;    // read the value from the sensor
-  Serial.print("br: ");Serial.print(br);
+  Serial.print("br: ");
+  Serial.print(br);
 
   if (br < 1 ) {
     // minimum dim-ness
@@ -272,11 +272,12 @@ void mode_auto() {
     //mode = 2; // hysteresis hack
   }
 
-  Serial.print(" br2: ");Serial.print(br);
+  Serial.print(" br2: ");
+  Serial.print(br);
 
-//  brRA.addValue(br);
-//  Serial.print(" brRAvg: ");Serial.println(brRA.getAverage());
-//  p.ledset = brRA.getAverage();
+  //  brRA.addValue(br);
+  //  Serial.print(" brRAvg: ");Serial.println(brRA.getAverage());
+  //  p.ledset = brRA.getAverage();
   p.ledset = br;
 
   update_light();
@@ -284,14 +285,14 @@ void mode_auto() {
   Serial.print("Measurment: ");
   Serial.println(br);
 
-//  Serial.print("Running Average: ");
-//  Serial.println(brRA.getAverage(), 3);
-//
-//  Serial.print("Running Count: ");
-//  Serial.println(brRA.getCount(), 3);
-//
-//  Serial.print("Running Size: ");
-//  Serial.println(brRA.getSize(), 3);
+  //  Serial.print("Running Average: ");
+  //  Serial.println(brRA.getAverage(), 3);
+  //
+  //  Serial.print("Running Count: ");
+  //  Serial.println(brRA.getCount(), 3);
+  //
+  //  Serial.print("Running Size: ");
+  //  Serial.println(brRA.getSize(), 3);
 
   Serial.print("led brightness: ");
   Serial.println(p.ledset);
@@ -524,11 +525,8 @@ unsigned long getTime(void) {
   // Hostname to IP lookup; use NTP pool (rotates through servers)
   if (cc3000.getHostByName("pool.ntp.org", &ip)) {
     static const char PROGMEM
-      timeReqA[] = { 
-      227,  0,  6, 236                 }
-    ,
-    timeReqB[] = {  
-      49, 78, 49,  52                 };
+      timeReqA[] = { 227,  0,  6, 236 },
+      timeReqB[] = {  49, 78, 49,  52 };
 
     startTime = millis();
     do {
@@ -590,6 +588,9 @@ bool displayConnectionDetails(void)
     return true;
   }
 }
+
+
+
 
 
 
