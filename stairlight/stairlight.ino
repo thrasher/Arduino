@@ -76,23 +76,23 @@ namespace d {
   reading;
 
   void print(reading r) {
-    Serial.print("CurrentTime: ");
+    Serial.print(F("CurrentTime: "));
     Serial.print(r.currentTime);
-    Serial.print(" Mode: ");
+    Serial.print(F(" Mode: "));
     Serial.print(r.mode);
-    Serial.print(" Lightsense: ");
+    Serial.print(F(" Lightsense: "));
     Serial.print(r.lightsense);
-    Serial.print(" Ledset: ");
+    Serial.print(F(" Ledset: "));
     Serial.print(r.ledset);
-    Serial.print(" Humidity: ");
+    Serial.print(F(" Humidity: "));
     Serial.print(r.humidity);
-    Serial.print(" %\t");
-    Serial.print("Temperature: ");
+    Serial.print(F(" %\t"));
+    Serial.print(F("Temperature: "));
     Serial.print(r.tempc);
-    Serial.print(" *C ");
+    Serial.print(F(" *C "));
     Serial.print(r.tempf);
-    Serial.print(" *F\t");
-    Serial.print("Heat index: ");
+    Serial.print(F(" *F\t"));
+    Serial.print(F("Heat index: "));
     Serial.print(r.heatindex);
     Serial.println(" *F");    
   }
@@ -159,7 +159,7 @@ void setup(void)
   unsigned long t = getTime();
   while (t == 0) {
     // Failed to get time, try again in a minute.
-    Serial.print("Getting NTP time, waiting (ms): "); 
+    Serial.print(F("Getting NTP time, waiting (ms): ")); 
     Serial.println(TIMEOUT_MS);
     delay(TIMEOUT_MS);
     t = getTime();
@@ -195,7 +195,7 @@ void loop() {
 
   button_state = digitalRead(BUTTON_PIN);
   if (button_state == 0) {
-    Serial.print("button_state: ");
+    Serial.print(F("button_state: "));
     Serial.println(button_state);
     //    unsigned long time;
     //    time = millis();
@@ -209,7 +209,7 @@ void loop() {
       reps++;
       delay(1500);
     }
-    Serial.print("mode is now: ");
+    Serial.print(F("mode is now: "));
     Serial.println(p.mode);
   }
 
@@ -256,7 +256,7 @@ void acquire() {
 void mode_auto() {
   p.lightsense = analogRead(A_POT_PIN);
   int br = p.lightsense / 4;    // read the value from the sensor
-  Serial.print("br: ");
+  Serial.print(F("br: "));
   Serial.print(br);
 
   if (br < 1 ) {
@@ -272,29 +272,29 @@ void mode_auto() {
     //mode = 2; // hysteresis hack
   }
 
-  Serial.print(" br2: ");
+  Serial.print(F(" br2: "));
   Serial.print(br);
 
   //  brRA.addValue(br);
-  //  Serial.print(" brRAvg: ");Serial.println(brRA.getAverage());
+  //  Serial.print(F(" brRAvg: "));Serial.println(brRA.getAverage());
   //  p.ledset = brRA.getAverage();
   p.ledset = br;
 
   update_light();
 
-  Serial.print("Measurment: ");
+  Serial.print(F("Measurment: "));
   Serial.println(br);
 
-  //  Serial.print("Running Average: ");
+  //  Serial.print(F("Running Average: "));
   //  Serial.println(brRA.getAverage(), 3);
   //
-  //  Serial.print("Running Count: ");
+  //  Serial.print(F("Running Count: "));
   //  Serial.println(brRA.getCount(), 3);
   //
-  //  Serial.print("Running Size: ");
+  //  Serial.print(F("Running Size: "));
   //  Serial.println(brRA.getSize(), 3);
 
-  Serial.print("led brightness: ");
+  Serial.print(F("led brightness: "));
   Serial.println(p.ledset);
 }
 
