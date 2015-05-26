@@ -96,6 +96,7 @@ byte addValue(byte f) {
 unsigned long lastPolledTime = 0;   // Last value retrieved from time server
 unsigned long sketchTime = 0;       // CPU milliseconds since last server query
 unsigned long lastReading = 0;      // Time of last temperature reading.
+unsigned long lastTimeUpdate = 0;   // Time of last time update
 d::reading p;
 DHT dht(DHTPIN, DHTTYPE); // Initialize DHT sensor for normal 16mhz Arduino
 
@@ -138,17 +139,7 @@ void setup(void)
 
   dht.begin(); // start the DHT library
 
-  // Get an initial time value by querying an NTP server.
-  unsigned long t = getTime();
-  while (t == 0) {
-    // Failed to get time, try again in a minute.
-    Serial.print(F("Getting NTP time, waiting (ms): ")); 
-    Serial.println(TIMEOUT_MS);
-    delay(TIMEOUT_MS);
-    t = getTime();
-  }
-  lastPolledTime = t;
-  sketchTime = millis();
+  updateTimers();
 
   /* You need to make sure to clean up after yourself or the CC3000 can freak out */
   /* the next time your try to connect ... */
@@ -201,6 +192,7 @@ void loop() {
 
     // Get a temp reading
     acquire();
+    d::print(p);
 
     // Write the result to the database.
     Serial.print(F("Writing data to web at time: ")); 
@@ -208,15 +200,35 @@ void loop() {
     //dynamoDBWrite(TABLE_NAME, ID_VALUE, p.currentTime, p.tempf);
     get();
   }
+  
+  if ((p.currentTime - lastTimeUpdate) >= (60 * 60 * 6)) { // every 6 hours
+    Serial.print("Updating time at: ");
+    Serial.println(p.currentTime);
+    lastTimeUpdate = p.currentTime;
+    updateTimers();
+  }
 
-  d::print(p);
   delay(100);
+}
+
+void updateTimers() {
+  // Get an initial time value by querying an NTP server.
+  unsigned long t = getTime();
+  while (t == 0) {
+    // Failed to get time, try again in a minute.
+    Serial.print(F("Getting NTP time, waiting (ms): ")); 
+    Serial.println(TIMEOUT_MS);
+    delay(TIMEOUT_MS);
+    t = getTime();
+  }
+  lastPolledTime = t;
+  sketchTime = millis();
 }
 
 #define WEBSITE "btrllroom.appspot.com"
 void get() {
   char path[74];//74=20 + 10 + 8 + 8 + 8 + 5 + 5 + 5 + 5
-  sprintf(path, "?stairlight/%lu/%i/%i/%i/%i/%i/%i/%i",
+  sprintf(path, "/stairlight/%lu/%i/%i/%i/%i/%i/%i/%i",
     p.currentTime, p.mode, p.lightsense, p.ledset,
     int(100*p.humidity), int(100*p.tempc), int(100*p.tempf), int(100*p.heatindex));
   Serial.print(F("get: "));
