@@ -22,13 +22,13 @@ Adafruit_CC3000 cc3000 = Adafruit_CC3000(ADAFRUIT_CC3000_CS,
     ADAFRUIT_CC3000_IRQ, 
     ADAFRUIT_CC3000_VBAT,
     SPI_CLOCK_DIVIDER);
-    
+
 // We get the SSID & Password from memory thanks to SmartConfigCreate!
-#define WLAN_SSID       "gogoair"           // cannot be longer than 32 characters!
-#define WLAN_PASS       "password"
+//#define WLAN_SSID       "gogoair"           // cannot be longer than 32 characters!
+//#define WLAN_PASS       "password"
 // Security can be WLAN_SEC_UNSEC, WLAN_SEC_WEP, WLAN_SEC_WPA or WLAN_SEC_WPA2
 #define WLAN_SECURITY   WLAN_SEC_WPA2
-//#define     DEVICE_NAME "CC3000" // should match value set using TI SmartConfig for auto-WiFi connection
+#define     DEVICE_NAME "CC3000" // should match value set using TI SmartConfig for auto-WiFi connection
 
 // *** pins ***
 #define DHTPIN 8 // pin for DHT22 temp/humidity sensor
@@ -113,22 +113,14 @@ void setup(void)
   //  pinMode(A_POT_PIN, INPUT); // does not need to be set
   pinMode(BUTTON_PIN, INPUT);
   
-  if (!cc3000.begin())
+  if (!cc3000.begin(false, true, DEVICE_NAME))
   {
-    Serial.println(F("Couldn't begin()! Check your wiring?"));
+    Serial.println(F("Unable to re-connect!? Did you run the SmartConfigCreate"));
+    Serial.println(F("sketch to store your connection details?"));
     while(1);
   }
   
-  // Optional SSID scan
-  // listSSIDResults();
-  
-  Serial.print(F("\nAttempting to connect to ")); Serial.println(WLAN_SSID);
-  if (!cc3000.connectToAP(WLAN_SSID, WLAN_PASS, WLAN_SECURITY)) {
-    Serial.println(F("Failed!"));
-    while(1);
-  }
-   
-  Serial.println(F("Connected!"));
+  Serial.println(F("Re-Connected!"));
 
   /* Wait for DHCP to complete */
   Serial.println(F("\nRequesting DHCP"));
