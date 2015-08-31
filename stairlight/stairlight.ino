@@ -217,7 +217,7 @@ void updateTimers() {
   sketchTime = millis();
 }
 
-#define WEBSITE "btrllroom.appspot.com"
+#define WEBSITE "bitmenu-app.appspot.com"
 void get() {
   char path[74];//74=20 + 10 + 8 + 8 + 8 + 5 + 5 + 5 + 5
   sprintf(path, "/stairlight/%lu/%i/%i/%i/%i/%i/%i/%i",
