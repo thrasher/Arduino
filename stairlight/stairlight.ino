@@ -2,6 +2,10 @@
 // Manages the lighting on the stairs, providing AUTO/ON/OFF functionality based on ambient
 // conditions and press-and-hold single-button switch.
 // by: Jason Thrasher 4/11/2015
+//
+// Note: the CC3000 is unstable as an always-on wifi unit, for a hack to help, see:
+// http://thefactoryfactory.com/wordpress/?p=1140
+
 #include <Adafruit_CC3000.h>
 #include <ccspi.h>
 #include <SPI.h>
