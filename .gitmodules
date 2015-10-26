@@ -40,3 +40,6 @@
 [submodule "libraries/RTClib"]
 	path = libraries/RTClib
 	url = https://github.com/adafruit/RTClib.git
+[submodule "libraries/Timer"]
+	path = libraries/Timer
+	url = https://github.com/JChristensen/Timer.git
