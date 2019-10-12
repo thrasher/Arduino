@@ -1,0 +1,1 @@
+This code was used to capture temperature data from a Samsung dryer with a defective thermostat.
